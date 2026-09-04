@@ -1,0 +1,75 @@
+RISK INVESTIGATION POLICY
+
+PURPOSE
+
+The risk engine prioritizes transactions for investigation based on machine learning evidence.
+
+RISK LEVELS
+
+HIGH RISK
+
+Transactions with a final risk score of 0.79 or greater are classified as HIGH risk by the current project configuration.
+
+HIGH-risk transactions should be prioritized for investigation.
+
+The threshold is a project-defined operational threshold and should not be interpreted as a universal fraud threshold.
+
+ALERT PRIORITY
+
+CRITICAL alerts represent the highest investigation priority under the configured risk policy.
+
+HIGH alerts represent transactions requiring significant investigation attention.
+
+Risk priority should be determined using the configured risk engine rather than by manually changing individual transaction results.
+
+INVESTIGATION REQUIREMENT
+
+A high-risk alert should generate an investigation case containing:
+
+- Transaction identifier.
+- Timestep.
+- Final risk score.
+- XGBoost probability.
+- GraphSAGE probability.
+- Model agreement.
+- Model disagreement.
+- Evidence type.
+- Graph evidence.
+- SHAP evidence.
+- Relevant retrieved investigation guidance.
+
+MODEL CORROBORATION
+
+When both XGBoost and GraphSAGE provide high-risk predictions, classify the evidence as stronger model corroboration.
+
+When only one model provides strong evidence, the case should indicate the source of the stronger signal.
+
+GRAPH EVIDENCE POLICY
+
+High-risk neighbors strengthen graph-based evidence.
+
+Low-risk neighbors do not prove that a transaction is legitimate.
+
+Unknown neighbors should remain classified as unknown.
+
+RECOMMENDED ACTIONS
+
+For a high-risk transaction:
+
+1. Escalate for manual review.
+2. Review the model evidence.
+3. Inspect graph relationships.
+4. Review the highest-impact SHAP features.
+5. Retrieve relevant investigation guidance.
+6. Consider additional transaction context.
+7. Record the investigation conclusion.
+
+LIMITATIONS
+
+The automated system supports investigators and does not replace human judgment.
+
+A machine learning alert is not equivalent to confirmed fraud.
+
+The final decision should consider additional evidence and applicable organizational policy.
+
+The AI investigator must never fabricate transaction information, graph relationships, feature meanings, labels, or investigation evidence.

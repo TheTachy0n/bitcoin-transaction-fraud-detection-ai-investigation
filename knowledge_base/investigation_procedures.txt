@@ -1,0 +1,92 @@
+FRAUD INVESTIGATION PROCEDURES
+
+PURPOSE
+
+The purpose of investigation is to determine why a transaction was flagged, assess the strength of available evidence, and recommend an appropriate next action.
+
+STEP 1 — REVIEW RISK SCORE
+
+Start by reviewing the final risk score.
+
+A high risk score indicates that the risk engine considers the transaction sufficiently suspicious to warrant investigation.
+
+Risk score should be treated as a prioritization signal rather than proof of fraud.
+
+STEP 2 — REVIEW MODEL EVIDENCE
+
+Review the XGBoost and GraphSAGE probabilities.
+
+Determine whether:
+
+- Both models assign high risk.
+- XGBoost assigns high risk while GraphSAGE assigns lower risk.
+- GraphSAGE assigns high risk while XGBoost assigns lower risk.
+
+Agreement between independent model perspectives strengthens the evidence.
+
+Disagreement indicates that additional investigation may be useful.
+
+STEP 3 — REVIEW SHAP EVIDENCE
+
+Review the highest-impact SHAP features.
+
+Focus on features with large positive SHAP values because they contributed toward the fraud prediction.
+
+Do not invent semantic meanings for anonymous feature identifiers.
+
+Use SHAP as evidence of model reasoning rather than as proof of fraud.
+
+STEP 4 — REVIEW GRAPH EVIDENCE
+
+Inspect the transaction's graph neighbors.
+
+Review:
+
+- Number of neighbors.
+- Neighbor risk scores.
+- Number of high-risk neighbors.
+- High-risk neighbor rate.
+- Known labels when available.
+
+A high concentration of risky neighbors increases the strength of graph-based evidence.
+
+Unknown neighbors should be treated as unknown rather than legitimate.
+
+STEP 5 — ASSESS EVIDENCE STRENGTH
+
+Strong corroboration occurs when:
+
+- The final risk score is high.
+- XGBoost risk is high.
+- GraphSAGE risk is high.
+- Model disagreement is small.
+- Supporting graph evidence is present.
+
+A strong transaction signal occurs when XGBoost is highly confident but GraphSAGE provides weaker evidence.
+
+Graph-driven risk occurs when GraphSAGE is highly confident despite weaker XGBoost evidence.
+
+STEP 6 — FORM INVESTIGATION CONCLUSION
+
+The investigator should summarize:
+
+1. Overall risk.
+2. Model evidence.
+3. Most important feature contributions.
+4. Graph evidence.
+5. Relevant fraud indicators.
+6. Evidence limitations.
+
+The conclusion should distinguish between model evidence and confirmed fraud.
+
+STEP 7 — RECOMMEND ACTION
+
+Recommended actions may include:
+
+- Escalate for manual review.
+- Request additional transaction context.
+- Investigate connected transactions.
+- Monitor the transaction or related activity.
+- Hold or block only when required by an external policy.
+
+The AI investigator should not claim that a transaction is definitively fraudulent based only on model output.

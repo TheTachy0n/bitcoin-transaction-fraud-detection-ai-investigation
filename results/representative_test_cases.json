@@ -1,0 +1,82 @@
+[
+    {
+        "category": "HIGH",
+        "transaction_id": 70788587
+    },
+    {
+        "category": "HIGH",
+        "transaction_id": 73003591
+    },
+    {
+        "category": "HIGH",
+        "transaction_id": 73280777
+    },
+    {
+        "category": "HIGH",
+        "transaction_id": 73000832
+    },
+    {
+        "category": "HIGH",
+        "transaction_id": 71988438
+    },
+    {
+        "category": "MEDIUM",
+        "transaction_id": 3295818
+    },
+    {
+        "category": "MEDIUM",
+        "transaction_id": 182004653
+    },
+    {
+        "category": "MEDIUM",
+        "transaction_id": 72745983
+    },
+    {
+        "category": "MEDIUM",
+        "transaction_id": 219556205
+    },
+    {
+        "category": "MEDIUM",
+        "transaction_id": 105419988
+    },
+    {
+        "category": "LOW",
+        "transaction_id": 73020281
+    },
+    {
+        "category": "LOW",
+        "transaction_id": 3302055
+    },
+    {
+        "category": "LOW",
+        "transaction_id": 219414648
+    },
+    {
+        "category": "LOW",
+        "transaction_id": 164672681
+    },
+    {
+        "category": "LOW",
+        "transaction_id": 106413758
+    },
+    {
+        "category": "DISAGREEMENT",
+        "transaction_id": 72689707
+    },
+    {
+        "category": "DISAGREEMENT",
+        "transaction_id": 218061386
+    },
+    {
+        "category": "DISAGREEMENT",
+        "transaction_id": 157621354
+    },
+    {
+        "category": "DISAGREEMENT",
+        "transaction_id": 72003442
+    },
+    {
+        "category": "DISAGREEMENT",
+        "transaction_id": 105848213
+    }
+]

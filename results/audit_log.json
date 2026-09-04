@@ -1,0 +1,294 @@
+[
+    {
+        "timestamp": "2026-09-04T15:14:09.527308",
+        "transaction_id": "71987809",
+        "risk_assessment": {
+            "risk_score": 0.999950977,
+            "risk_level": "HIGH",
+            "alert_priority": "CRITICAL",
+            "fraud_alert": "True"
+        },
+        "model_predictions": {
+            "xgboost_probability": 0.9999651,
+            "graphsage_probability": 0.99982387,
+            "agreement_category": "BOTH_HIGH",
+            "model_agreement": 0.99985877,
+            "model_disagreement": 0.0001412300000001,
+            "evidence_type": "STRONG_CORROBORATION"
+        },
+        "model_agreement": "BOTH_HIGH",
+        "tools_called": [
+            "transaction_tool",
+            "graph_tool",
+            "rag_retriever"
+        ],
+        "evidence": {
+            "transaction": {
+                "txId": 71987809,
+                "timestep": 42,
+                "label": 1
+            },
+            "graph": {
+                "success": true,
+                "txId": 71987809,
+                "neighbor_count": 1,
+                "average_neighbor_risk": null,
+                "high_risk_neighbor_count": 0,
+                "high_risk_neighbor_rate": 0.0,
+                "labeled_neighbor_count": 0,
+                "labeled_neighbor_fraud_rate": 0.0,
+                "high_risk_neighbors": [],
+                "neighbors": [
+                    {
+                        "txId": 73160850,
+                        "timestep": 42,
+                        "label": -1,
+                        "risk_score": null
+                    }
+                ]
+            },
+            "shap": {
+                "top_features": [
+                    {
+                        "rank": 1,
+                        "feature": "feature_89",
+                        "feature_value": -0.6942351992761703,
+                        "shap_value": 1.6319137811660769,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 2,
+                        "feature": "feature_52",
+                        "feature_value": -0.4883181502502999,
+                        "shap_value": 1.471646070480347,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 3,
+                        "feature": "feature_131",
+                        "feature_value": -0.1887158089232799,
+                        "shap_value": 0.747545599937439,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 4,
+                        "feature": "feature_75",
+                        "feature_value": -0.0918176532065505,
+                        "shap_value": 0.6999297142028809,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 5,
+                        "feature": "feature_126",
+                        "feature_value": -0.1050943598427655,
+                        "shap_value": 0.6019715666770935,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    }
+                ]
+            },
+            "rag": [
+                {
+                    "source": "risk_policy.txt",
+                    "score": 0.3923339527209969,
+                    "text": "RISK INVESTIGATION POLICY\n\nPURPOSE\n\nThe risk engine prioritizes transactions for investigation based on machine learning evidence.\n\nRISK LEVELS\n\nHIGH RISK\n\nTransactions with a final risk score of 0.79 or greater are classified as HIGH risk by the current project configuration.\n\nHIGH-risk transactions should be prioritized for investigation.\n\nThe threshold is a project-defined operational threshold and should not be interpreted as a universal fraud threshold.\n\nALERT PRIORITY\n\nCRITICAL alerts represent the highest investigation priority under the configured risk policy.\n\nHIGH alerts represent transactions requiring significant investigation attention.\n\nRisk priority should be determined using the configured risk engine rather than by manually changing individual transaction results.\n\nINVESTIGATION REQUIREMENT\n\nA high-risk alert should generate an investigation case containing:\n\n- Transaction identifier.\n- Timestep.\n- Final risk score.\n- XGBoost probability.\n- GraphSAGE probability.\n- Model agreement.\n- Model disagreement.\n- Evidence type.\n- Graph evidence.\n- SHAP evidence.\n- Relevant retrieved investigation guidance.\n\nMODEL CORROBORATION\n\nWhen both XGBoost and GraphSAGE provide high-risk predictions, classify the evidence as stronger model corroboration.\n\nWhen only one model provides strong evidence, the case should indicate the source of the stronger signal.\n\nGRAPH EVIDENCE POLICY\n\nHigh-risk neighbors strengthen graph-based evidence.\n\nLow-risk neighbors do not prove that a transaction is legitimate.\n\nUnknown neighbors should remain classified as unknown.\n\nRECOMMENDED ACTIONS\n\nFor a high-risk transaction:\n\n1. Escalate for manual review.\n2. Review the model evidence.\n3. Inspect graph relationships.\n4. Review the highest-impact SHAP features.\n5. Retrieve relevant investigation guidance.\n6. Consider additional transaction context.\n7. Record the investigation conclusion.\n\nLIMITATIONS\n\nThe automated system supports investigators and does not replace human judgment.\n\nA machine learning alert is not equivalent to confirmed fraud.\n\nThe final decision should consider additional evidence and applicable organizational policy.\n\nThe AI investigator must never fabricate transaction information, graph relationships, feature meanings, labels, or investigation evidence."
+                },
+                {
+                    "source": "investigation_procedures.txt",
+                    "score": 0.3310407187031342,
+                    "text": "FRAUD INVESTIGATION PROCEDURES\n\nPURPOSE\n\nThe purpose of investigation is to determine why a transaction was flagged, assess the strength of available evidence, and recommend an appropriate next action.\n\nSTEP 1 \u2014 REVIEW RISK SCORE\n\nStart by reviewing the final risk score.\n\nA high risk score indicates that the risk engine considers the transaction sufficiently suspicious to warrant investigation.\n\nRisk score should be treated as a prioritization signal rather than proof of fraud.\n\nSTEP 2 \u2014 REVIEW MODEL EVIDENCE\n\nReview the XGBoost and GraphSAGE probabilities.\n\nDetermine whether:\n\n- Both models assign high risk.\n- XGBoost assigns high risk while GraphSAGE assigns lower risk.\n- GraphSAGE assigns high risk while XGBoost assigns lower risk.\n\nAgreement between independent model perspectives strengthens the evidence.\n\nDisagreement indicates that additional investigation may be useful.\n\nSTEP 3 \u2014 REVIEW SHAP EVIDENCE\n\nReview the highest-impact SHAP features.\n\nFocus on features with large positive SHAP values because they contributed toward the fraud prediction.\n\nDo not invent semantic meanings for anonymous feature identifiers.\n\nUse SHAP as evidence of model reasoning rather than as proof of fraud.\n\nSTEP 4 \u2014 REVIEW GRAPH EVIDENCE\n\nInspect the transaction's graph neighbors.\n\nReview:\n\n- Number of neighbors.\n- Neighbor risk scores.\n- Number of high-risk neighbors.\n- High-risk neighbor rate.\n- Known labels when available.\n\nA high concentration of risky neighbors increases the strength of graph-based evidence.\n\nUnknown neighbors should be treated as unknown rather than legitimate.\n\nSTEP 5 \u2014 ASSESS EVIDENCE STRENGTH\n\nStrong corroboration occurs when:\n\n- The final risk score is high.\n- XGBoost risk is high.\n- GraphSAGE risk is high.\n- Model disagreement is small.\n- Supporting graph evidence is present.\n\nA strong transaction signal occurs when XGBoost is highly confident but GraphSAGE provides weaker evidence.\n\nGraph-driven risk occurs when GraphSAGE is highly confident despite weaker XGBoost evidence.\n\nSTEP 6 \u2014 FORM INVESTIGATION CONCLUSION\n\nThe investigator should summarize:\n\n1. Overall risk.\n2. Model evidence.\n3. Most important feature contributions.\n4. Graph evidence.\n5. Relevant fraud indicators.\n6. Evidence limitations.\n\nThe conclusion should distinguish between model evidence and confirmed fraud.\n\nSTEP 7 \u2014 RECOMMEND ACTION\n\nRecommended actions may include:\n\n- Escalate for manual review.\n- Request additional transaction context.\n- Investigate connected transactions.\n- Monitor the transaction or related activity.\n- Hold or block only when required by an external policy.\n\nThe AI investigator should not claim that a transaction is definitively fraudulent based only on model output."
+                },
+                {
+                    "source": "fraud_indicators.txt",
+                    "score": 0.2880353495864068,
+                    "text": "FRAUD INDICATORS\n\nFraud detection systems identify transactions that exhibit characteristics associated with illicit activity. A single indicator does not necessarily prove fraud. Multiple independent indicators provide stronger evidence.\n\nMODEL-BASED RISK\n\nA transaction receiving a high probability from a supervised machine learning model should be considered a high-risk candidate for investigation. Model probability represents the model's estimated likelihood of the illicit class based on learned patterns. It is not proof that the transaction is fraudulent.\n\nMODEL CORROBORATION\n\nWhen XGBoost and GraphSAGE both assign high fraud probabilities to the same transaction, the evidence is stronger than when only one model assigns high risk.\n\nXGBoost primarily captures transaction-level feature patterns.\n\nGraphSAGE incorporates information from connected transactions in the transaction graph.\n\nStrong agreement between the models indicates that both transaction-level and graph-based patterns support the risk assessment.\n\nMODEL DISAGREEMENT\n\nWhen XGBoost assigns high risk while GraphSAGE assigns lower risk, the transaction may contain strong transaction-level patterns without strong supporting graph evidence.\n\nWhen GraphSAGE assigns high risk while XGBoost assigns lower risk, the transaction may exhibit suspicious graph relationships even though its individual transaction features are less suspicious.\n\nModel disagreement should trigger closer investigation rather than automatic rejection.\n\nGRAPH INDICATORS\n\nSuspicious graph behavior may include:\n\n- Connections to multiple high-risk transactions.\n- High concentration of risky neighbors.\n- Strong connectivity to previously identified suspicious activity.\n- Unusual local graph structure.\n- Multiple transactions associated with suspicious transaction clusters.\n\nA high-risk transaction with many high-risk neighbors provides stronger graph evidence than a high-risk transaction whose neighbors are mostly low-risk or unknown.\n\nNEIGHBOR INTERPRETATION\n\nA transaction's graph neighbors represent transactions connected through the transaction graph.\n\nUnknown neighbors should not automatically be considered legitimate or fraudulent. Their lack of a known label means that their true class is unknown.\n\nRisk scores assigned to neighbors can provide additional model-based evidence when available.\n\nSHAP INDICATORS\n\nSHAP values explain the contribution of individual features to an XGBoost prediction.\n\nA positive SHAP value for the fraud class means that the feature pushes the model toward a higher fraud prediction.\n\nA negative SHAP value means that the feature pushes the model toward a lower fraud prediction.\n\nLarge absolute SHAP values indicate stronger influence on the individual prediction.\n\nSHAP explanations describe model behavior. They do not establish that a feature is inherently fraudulent.\n\nIMPORTANT LIMITATION\n\nFeature identifiers such as feature_52 or feature_89 are model input dimensions. Unless their original semantic meaning is known from the dataset documentation, an investigator should not assign a real-world interpretation to the feature.\n\nThe system should therefore state that a feature contributed strongly to the model prediction rather than inventing what that feature represents."
+                }
+            ]
+        },
+        "llm": {
+            "provider": "groq",
+            "model": "openai/gpt-oss-120b"
+        },
+        "policy_decision": {
+            "success": true,
+            "transaction_id": 71987809,
+            "decision": "ESCALATE",
+            "priority": "CRITICAL",
+            "requires_manual_review": true,
+            "risk_score": 0.999950977,
+            "risk_level": "HIGH",
+            "alert_priority": "CRITICAL",
+            "model_evidence": {
+                "xgboost_probability": 0.9999651,
+                "graphsage_probability": 0.99982387,
+                "agreement_category": "BOTH_HIGH",
+                "model_disagreement": 0.0001412300000001
+            },
+            "graph_evidence": {
+                "neighbor_count": 1,
+                "high_risk_neighbor_count": 0,
+                "labeled_neighbor_count": 0
+            },
+            "reasons": [
+                "Risk score is extremely high.",
+                "XGBoost and GraphSAGE independently assign high fraud probability.",
+                "Model disagreement is low.",
+                "1 graph neighbor(s) were identified, but no high-risk neighbors were available.",
+                "Graph neighbors are unlabeled; they cannot be assumed legitimate."
+            ],
+            "policy_statement": "This decision is a risk-based operational recommendation and does not constitute proof of fraud."
+        },
+        "final_recommendation": "ESCALATE",
+        "metadata": {
+            "pipeline_version": "1.0",
+            "runner": "Streamlit",
+            "transaction_id": "71987809"
+        }
+    },
+    {
+        "timestamp": "2026-09-04T15:35:58.382520",
+        "transaction_id": "71987809",
+        "risk_assessment": {
+            "risk_score": 0.999950977,
+            "risk_level": "HIGH",
+            "alert_priority": "CRITICAL",
+            "fraud_alert": "True"
+        },
+        "model_predictions": {
+            "xgboost_probability": 0.9999651,
+            "graphsage_probability": 0.99982387,
+            "agreement_category": "BOTH_HIGH",
+            "model_agreement": 0.99985877,
+            "model_disagreement": 0.0001412300000001,
+            "evidence_type": "STRONG_CORROBORATION"
+        },
+        "model_agreement": "BOTH_HIGH",
+        "tools_called": [
+            "transaction_tool",
+            "graph_tool",
+            "rag_retriever"
+        ],
+        "evidence": {
+            "transaction": {
+                "txId": 71987809,
+                "timestep": 42,
+                "label": 1
+            },
+            "graph": {
+                "success": true,
+                "txId": 71987809,
+                "neighbor_count": 1,
+                "average_neighbor_risk": null,
+                "high_risk_neighbor_count": 0,
+                "high_risk_neighbor_rate": 0.0,
+                "labeled_neighbor_count": 0,
+                "labeled_neighbor_fraud_rate": 0.0,
+                "high_risk_neighbors": [],
+                "neighbors": [
+                    {
+                        "txId": 73160850,
+                        "timestep": 42,
+                        "label": -1,
+                        "risk_score": null
+                    }
+                ]
+            },
+            "shap": {
+                "top_features": [
+                    {
+                        "rank": 1,
+                        "feature": "feature_89",
+                        "feature_value": -0.6942351992761703,
+                        "shap_value": 1.6319137811660769,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 2,
+                        "feature": "feature_52",
+                        "feature_value": -0.4883181502502999,
+                        "shap_value": 1.471646070480347,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 3,
+                        "feature": "feature_131",
+                        "feature_value": -0.1887158089232799,
+                        "shap_value": 0.747545599937439,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 4,
+                        "feature": "feature_75",
+                        "feature_value": -0.0918176532065505,
+                        "shap_value": 0.6999297142028809,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    },
+                    {
+                        "rank": 5,
+                        "feature": "feature_126",
+                        "feature_value": -0.1050943598427655,
+                        "shap_value": 0.6019715666770935,
+                        "direction": "INCREASES_FRAUD_RISK"
+                    }
+                ]
+            },
+            "rag": [
+                {
+                    "source": "risk_policy.txt",
+                    "score": 0.3923339527209969,
+                    "text": "RISK INVESTIGATION POLICY\n\nPURPOSE\n\nThe risk engine prioritizes transactions for investigation based on machine learning evidence.\n\nRISK LEVELS\n\nHIGH RISK\n\nTransactions with a final risk score of 0.79 or greater are classified as HIGH risk by the current project configuration.\n\nHIGH-risk transactions should be prioritized for investigation.\n\nThe threshold is a project-defined operational threshold and should not be interpreted as a universal fraud threshold.\n\nALERT PRIORITY\n\nCRITICAL alerts represent the highest investigation priority under the configured risk policy.\n\nHIGH alerts represent transactions requiring significant investigation attention.\n\nRisk priority should be determined using the configured risk engine rather than by manually changing individual transaction results.\n\nINVESTIGATION REQUIREMENT\n\nA high-risk alert should generate an investigation case containing:\n\n- Transaction identifier.\n- Timestep.\n- Final risk score.\n- XGBoost probability.\n- GraphSAGE probability.\n- Model agreement.\n- Model disagreement.\n- Evidence type.\n- Graph evidence.\n- SHAP evidence.\n- Relevant retrieved investigation guidance.\n\nMODEL CORROBORATION\n\nWhen both XGBoost and GraphSAGE provide high-risk predictions, classify the evidence as stronger model corroboration.\n\nWhen only one model provides strong evidence, the case should indicate the source of the stronger signal.\n\nGRAPH EVIDENCE POLICY\n\nHigh-risk neighbors strengthen graph-based evidence.\n\nLow-risk neighbors do not prove that a transaction is legitimate.\n\nUnknown neighbors should remain classified as unknown.\n\nRECOMMENDED ACTIONS\n\nFor a high-risk transaction:\n\n1. Escalate for manual review.\n2. Review the model evidence.\n3. Inspect graph relationships.\n4. Review the highest-impact SHAP features.\n5. Retrieve relevant investigation guidance.\n6. Consider additional transaction context.\n7. Record the investigation conclusion.\n\nLIMITATIONS\n\nThe automated system supports investigators and does not replace human judgment.\n\nA machine learning alert is not equivalent to confirmed fraud.\n\nThe final decision should consider additional evidence and applicable organizational policy.\n\nThe AI investigator must never fabricate transaction information, graph relationships, feature meanings, labels, or investigation evidence."
+                },
+                {
+                    "source": "investigation_procedures.txt",
+                    "score": 0.3310407187031342,
+                    "text": "FRAUD INVESTIGATION PROCEDURES\n\nPURPOSE\n\nThe purpose of investigation is to determine why a transaction was flagged, assess the strength of available evidence, and recommend an appropriate next action.\n\nSTEP 1 \u2014 REVIEW RISK SCORE\n\nStart by reviewing the final risk score.\n\nA high risk score indicates that the risk engine considers the transaction sufficiently suspicious to warrant investigation.\n\nRisk score should be treated as a prioritization signal rather than proof of fraud.\n\nSTEP 2 \u2014 REVIEW MODEL EVIDENCE\n\nReview the XGBoost and GraphSAGE probabilities.\n\nDetermine whether:\n\n- Both models assign high risk.\n- XGBoost assigns high risk while GraphSAGE assigns lower risk.\n- GraphSAGE assigns high risk while XGBoost assigns lower risk.\n\nAgreement between independent model perspectives strengthens the evidence.\n\nDisagreement indicates that additional investigation may be useful.\n\nSTEP 3 \u2014 REVIEW SHAP EVIDENCE\n\nReview the highest-impact SHAP features.\n\nFocus on features with large positive SHAP values because they contributed toward the fraud prediction.\n\nDo not invent semantic meanings for anonymous feature identifiers.\n\nUse SHAP as evidence of model reasoning rather than as proof of fraud.\n\nSTEP 4 \u2014 REVIEW GRAPH EVIDENCE\n\nInspect the transaction's graph neighbors.\n\nReview:\n\n- Number of neighbors.\n- Neighbor risk scores.\n- Number of high-risk neighbors.\n- High-risk neighbor rate.\n- Known labels when available.\n\nA high concentration of risky neighbors increases the strength of graph-based evidence.\n\nUnknown neighbors should be treated as unknown rather than legitimate.\n\nSTEP 5 \u2014 ASSESS EVIDENCE STRENGTH\n\nStrong corroboration occurs when:\n\n- The final risk score is high.\n- XGBoost risk is high.\n- GraphSAGE risk is high.\n- Model disagreement is small.\n- Supporting graph evidence is present.\n\nA strong transaction signal occurs when XGBoost is highly confident but GraphSAGE provides weaker evidence.\n\nGraph-driven risk occurs when GraphSAGE is highly confident despite weaker XGBoost evidence.\n\nSTEP 6 \u2014 FORM INVESTIGATION CONCLUSION\n\nThe investigator should summarize:\n\n1. Overall risk.\n2. Model evidence.\n3. Most important feature contributions.\n4. Graph evidence.\n5. Relevant fraud indicators.\n6. Evidence limitations.\n\nThe conclusion should distinguish between model evidence and confirmed fraud.\n\nSTEP 7 \u2014 RECOMMEND ACTION\n\nRecommended actions may include:\n\n- Escalate for manual review.\n- Request additional transaction context.\n- Investigate connected transactions.\n- Monitor the transaction or related activity.\n- Hold or block only when required by an external policy.\n\nThe AI investigator should not claim that a transaction is definitively fraudulent based only on model output."
+                },
+                {
+                    "source": "fraud_indicators.txt",
+                    "score": 0.2880353495864068,
+                    "text": "FRAUD INDICATORS\n\nFraud detection systems identify transactions that exhibit characteristics associated with illicit activity. A single indicator does not necessarily prove fraud. Multiple independent indicators provide stronger evidence.\n\nMODEL-BASED RISK\n\nA transaction receiving a high probability from a supervised machine learning model should be considered a high-risk candidate for investigation. Model probability represents the model's estimated likelihood of the illicit class based on learned patterns. It is not proof that the transaction is fraudulent.\n\nMODEL CORROBORATION\n\nWhen XGBoost and GraphSAGE both assign high fraud probabilities to the same transaction, the evidence is stronger than when only one model assigns high risk.\n\nXGBoost primarily captures transaction-level feature patterns.\n\nGraphSAGE incorporates information from connected transactions in the transaction graph.\n\nStrong agreement between the models indicates that both transaction-level and graph-based patterns support the risk assessment.\n\nMODEL DISAGREEMENT\n\nWhen XGBoost assigns high risk while GraphSAGE assigns lower risk, the transaction may contain strong transaction-level patterns without strong supporting graph evidence.\n\nWhen GraphSAGE assigns high risk while XGBoost assigns lower risk, the transaction may exhibit suspicious graph relationships even though its individual transaction features are less suspicious.\n\nModel disagreement should trigger closer investigation rather than automatic rejection.\n\nGRAPH INDICATORS\n\nSuspicious graph behavior may include:\n\n- Connections to multiple high-risk transactions.\n- High concentration of risky neighbors.\n- Strong connectivity to previously identified suspicious activity.\n- Unusual local graph structure.\n- Multiple transactions associated with suspicious transaction clusters.\n\nA high-risk transaction with many high-risk neighbors provides stronger graph evidence than a high-risk transaction whose neighbors are mostly low-risk or unknown.\n\nNEIGHBOR INTERPRETATION\n\nA transaction's graph neighbors represent transactions connected through the transaction graph.\n\nUnknown neighbors should not automatically be considered legitimate or fraudulent. Their lack of a known label means that their true class is unknown.\n\nRisk scores assigned to neighbors can provide additional model-based evidence when available.\n\nSHAP INDICATORS\n\nSHAP values explain the contribution of individual features to an XGBoost prediction.\n\nA positive SHAP value for the fraud class means that the feature pushes the model toward a higher fraud prediction.\n\nA negative SHAP value means that the feature pushes the model toward a lower fraud prediction.\n\nLarge absolute SHAP values indicate stronger influence on the individual prediction.\n\nSHAP explanations describe model behavior. They do not establish that a feature is inherently fraudulent.\n\nIMPORTANT LIMITATION\n\nFeature identifiers such as feature_52 or feature_89 are model input dimensions. Unless their original semantic meaning is known from the dataset documentation, an investigator should not assign a real-world interpretation to the feature.\n\nThe system should therefore state that a feature contributed strongly to the model prediction rather than inventing what that feature represents."
+                }
+            ]
+        },
+        "llm": {
+            "provider": "groq",
+            "model": "openai/gpt-oss-120b",
+            "used": true,
+            "fallback": false
+        },
+        "policy_decision": {
+            "success": true,
+            "transaction_id": 71987809,
+            "decision": "ESCALATE",
+            "priority": "CRITICAL",
+            "requires_manual_review": true,
+            "risk_score": 0.999950977,
+            "risk_level": "HIGH",
+            "alert_priority": "CRITICAL",
+            "model_evidence": {
+                "xgboost_probability": 0.9999651,
+                "graphsage_probability": 0.99982387,
+                "agreement_category": "BOTH_HIGH",
+                "model_disagreement": 0.0001412300000001
+            },
+            "graph_evidence": {
+                "neighbor_count": 1,
+                "high_risk_neighbor_count": 0,
+                "labeled_neighbor_count": 0
+            },
+            "reasons": [
+                "Risk score is extremely high.",
+                "XGBoost and GraphSAGE independently assign high fraud probability.",
+                "Model disagreement is low.",
+                "1 graph neighbor(s) were identified, but no high-risk neighbors were available.",
+                "Graph neighbors are unlabeled; they cannot be assumed legitimate."
+            ],
+            "policy_statement": "This decision is a risk-based operational recommendation and does not constitute proof of fraud."
+        },
+        "final_recommendation": "ESCALATE",
+        "metadata": {
+            "pipeline_version": "1.0",
+            "runner": "Streamlit",
+            "transaction_id": "71987809"
+        }
+    }
+]

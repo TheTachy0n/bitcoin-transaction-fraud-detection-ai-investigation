@@ -1,0 +1,63 @@
+FRAUD INDICATORS
+
+Fraud detection systems identify transactions that exhibit characteristics associated with illicit activity. A single indicator does not necessarily prove fraud. Multiple independent indicators provide stronger evidence.
+
+MODEL-BASED RISK
+
+A transaction receiving a high probability from a supervised machine learning model should be considered a high-risk candidate for investigation. Model probability represents the model's estimated likelihood of the illicit class based on learned patterns. It is not proof that the transaction is fraudulent.
+
+MODEL CORROBORATION
+
+When XGBoost and GraphSAGE both assign high fraud probabilities to the same transaction, the evidence is stronger than when only one model assigns high risk.
+
+XGBoost primarily captures transaction-level feature patterns.
+
+GraphSAGE incorporates information from connected transactions in the transaction graph.
+
+Strong agreement between the models indicates that both transaction-level and graph-based patterns support the risk assessment.
+
+MODEL DISAGREEMENT
+
+When XGBoost assigns high risk while GraphSAGE assigns lower risk, the transaction may contain strong transaction-level patterns without strong supporting graph evidence.
+
+When GraphSAGE assigns high risk while XGBoost assigns lower risk, the transaction may exhibit suspicious graph relationships even though its individual transaction features are less suspicious.
+
+Model disagreement should trigger closer investigation rather than automatic rejection.
+
+GRAPH INDICATORS
+
+Suspicious graph behavior may include:
+
+- Connections to multiple high-risk transactions.
+- High concentration of risky neighbors.
+- Strong connectivity to previously identified suspicious activity.
+- Unusual local graph structure.
+- Multiple transactions associated with suspicious transaction clusters.
+
+A high-risk transaction with many high-risk neighbors provides stronger graph evidence than a high-risk transaction whose neighbors are mostly low-risk or unknown.
+
+NEIGHBOR INTERPRETATION
+
+A transaction's graph neighbors represent transactions connected through the transaction graph.
+
+Unknown neighbors should not automatically be considered legitimate or fraudulent. Their lack of a known label means that their true class is unknown.
+
+Risk scores assigned to neighbors can provide additional model-based evidence when available.
+
+SHAP INDICATORS
+
+SHAP values explain the contribution of individual features to an XGBoost prediction.
+
+A positive SHAP value for the fraud class means that the feature pushes the model toward a higher fraud prediction.
+
+A negative SHAP value means that the feature pushes the model toward a lower fraud prediction.
+
+Large absolute SHAP values indicate stronger influence on the individual prediction.
+
+SHAP explanations describe model behavior. They do not establish that a feature is inherently fraudulent.
+
+IMPORTANT LIMITATION
+
+Feature identifiers such as feature_52 or feature_89 are model input dimensions. Unless their original semantic meaning is known from the dataset documentation, an investigator should not assign a real-world interpretation to the feature.
+
+The system should therefore state that a feature contributed strongly to the model prediction rather than inventing what that feature represents.

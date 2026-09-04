@@ -1,0 +1,113 @@
+# =========================================================
+# Python
+# =========================================================
+
+__pycache__/
+*.py[cod]
+*.pyo
+
+# =========================================================
+# Virtual Environment
+# =========================================================
+
+.venv/
+venv/
+env/
+
+# =========================================================
+# Environment / Secrets
+# =========================================================
+
+.env
+.env.*
+!.env.example
+
+# =========================================================
+# macOS
+# =========================================================
+
+.DS_Store
+
+# =========================================================
+# IDE
+# =========================================================
+
+.vscode/
+.idea/
+
+# =========================================================
+# Jupyter
+# =========================================================
+
+.ipynb_checkpoints/
+
+# =========================================================
+# Logs / Temporary Files
+# =========================================================
+
+*.log
+*.tmp
+*.temp
+
+# =========================================================
+# Dataset
+# =========================================================
+
+data/
+
+# =========================================================
+# Intermediate Models
+# =========================================================
+
+models/logistic_regression.pkl
+models/xgboost_best.pkl
+models/xgb_tuning/
+
+# =========================================================
+# Experimental / Intermediate Results
+# =========================================================
+
+results/shap_explanations.csv
+results/llm_investigation_report.json
+results/llm_investigation_report.txt
+results/step9_threshold_analysis.csv
+results/fusion_benchmark.csv
+results/xgboost_test_predictions.csv
+results/investigation_report.json
+results/final_test_top_k.csv
+results/aligned_validation_predictions.csv
+results/risk_engine_v2_validation.csv
+results/final_test_predictions.csv
+results/threshold_optimization.csv
+results/top_k_comparison.csv
+results/xgboost_validation_predictions.csv
+results/step9_test_comparison.csv
+results/graphsage_validation_predictions.csv
+results/logistic_regression_metrics.csv
+results/xgboost_test_predictions_v2.csv
+results/xgboost_tuning_results.csv
+results/calibration_curve_data.csv
+results/xgboost_metrics.csv
+results/logistic_regression_test_predictions.csv
+results/xgboost_training_curve.csv
+results.fusion_weight_analysis.csv
+results/calibration_analysis.csv
+results/xgboost_optimization_results.csv
+results/risk_engine_output.csv
+results/hybrid_fusion_validation.csv
+results/graphsage_metrics.csv
+results/graphsage_test_predictions_v2.csv
+results/final_model_selection_analysis.csv
+results/historical_graph_features.csv
+
+# =========================================================
+# Keep final / demonstration results
+# =========================================================
+
+# results/audit_log.json
+# results/final_risk_engine.csv
+# results/final_test_metrics.csv
+# results/hybrid_fusion_metrics.csv
+# results/model_agreement_validation.csv
+# results/investigation_evidence.csv
+# results/representative_test_cases.json

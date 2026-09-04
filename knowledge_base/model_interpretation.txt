@@ -1,0 +1,73 @@
+MODEL INTERPRETATION
+
+XGBOOST
+
+XGBoost is a gradient-boosted decision-tree model operating on transaction features.
+
+Its probability represents the model's estimated probability for the illicit class.
+
+XGBoost captures nonlinear relationships between transaction-level features.
+
+XGBOOST EXPLAINABILITY
+
+SHAP values are used to explain individual XGBoost predictions.
+
+For an individual transaction:
+
+- Positive SHAP values push the prediction toward fraud.
+- Negative SHAP values push the prediction away from fraud.
+- Larger absolute SHAP values indicate greater contribution.
+- The sum of SHAP contributions together with the model's baseline explains the model output in the model's prediction space.
+
+A feature with a large positive SHAP value is therefore evidence that the model relied strongly on that feature when producing the fraud prediction.
+
+GRAPH SAGE
+
+GraphSAGE is a graph neural network that learns transaction representations using information from connected nodes.
+
+Unlike a purely transaction-level model, GraphSAGE can incorporate information from a transaction's graph neighborhood.
+
+GraphSAGE risk therefore provides graph-based evidence.
+
+GRAPH EVIDENCE
+
+Graph evidence can include:
+
+- Neighbor count.
+- Neighbor risk.
+- High-risk neighbor count.
+- High-risk neighbor rate.
+- Known neighbor labels.
+- Local graph connectivity.
+
+MODEL AGREEMENT
+
+Model agreement measures how closely the model probabilities align.
+
+A small probability difference indicates strong agreement.
+
+A large probability difference indicates model disagreement.
+
+Agreement should be interpreted as corroboration between model perspectives, not as statistical proof that the prediction is correct.
+
+RISK SCORE
+
+The final risk score is produced by the project's risk engine using the model outputs and selected fusion logic.
+
+A high risk score prioritizes a transaction for investigation.
+
+The risk score should not be described as a guaranteed probability of real-world fraud unless the model has been explicitly calibrated and validated for that interpretation.
+
+LIMITATIONS
+
+Machine learning predictions are based on patterns learned from historical data.
+
+Models can produce false positives and false negatives.
+
+Graph-based evidence depends on the quality and completeness of the transaction graph.
+
+Unknown transaction labels do not imply legitimate behavior.
+
+SHAP explains the model's behavior and does not establish causal relationships.
+
+The AI investigator must communicate these limitations when producing an investigation report.
