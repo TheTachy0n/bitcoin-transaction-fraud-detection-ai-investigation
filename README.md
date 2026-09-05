@@ -367,41 +367,63 @@ A representative high-risk investigation uses transaction `71987809`.
 The investigation follows:
 
 ```text
-Transaction 71987809
-        |
-        v
-XGBoost + GraphSAGE
-        |
-        v
-Hybrid Fusion
-        |
-        v
-Risk Engine
-        |
-        v
-HIGH Risk
-        |
-        +------------------+
-        |                  |
-        v                  v
-      SHAP               Graph
-        |                  |
-        +--------+---------+
-                 |
-                 v
-                RAG
-                 |
-                 v
-         AI Investigator
-                 |
-                 v
-          Policy Engine
-                 |
-                 v
-             ESCALATE
-                 |
-                 v
-            Audit Log
+                         ┌───────────────────────┐
+                         │  Transaction 71987809 │
+                         └───────────┬───────────┘
+                                     │
+                                     ▼
+                     ┌───────────────────────────┐
+                     │     XGBoost + GraphSAGE   │
+                     │       Fraud Detection     │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                     ┌───────────────────────────┐
+                     │      Hybrid Fusion        │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                     ┌───────────────────────────┐
+                     │       Risk Engine         │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                            ┌────────────┐
+                            │  🔴 HIGH   │
+                            │    RISK    │
+                            └─────┬──────┘
+                                  │
+                    ┌─────────────┼─────────────┐
+                    │             │             │
+                    ▼             ▼             ▼
+             ┌────────────┐ ┌────────────┐ ┌────────────┐
+             │    SHAP    │ │   Graph    │ │    RAG     │
+             │  Model     │ │  Context   │ │  Evidence  │
+             │ Explanation│ │            │ │ & Policies │
+             └─────┬──────┘ └─────┬──────┘ └─────┬──────┘
+                   │              │              │
+                   └──────────────┼──────────────┘
+                                  │
+                                  ▼
+                     ┌───────────────────────────┐
+                     │      AI Investigator      │
+                     │   Evidence + Reasoning    │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                     ┌───────────────────────────┐
+                     │      Policy Engine        │
+                     └─────────────┬─────────────┘
+                                   │
+                                   ▼
+                            ┌────────────┐
+                            │  ESCALATE  │
+                            └─────┬──────┘
+                                  │
+                                  ▼
+                     ┌───────────────────────────┐
+                     │        Audit Log          │
+                     └───────────────────────────┘
 ```
 
 Additional transactions are used to demonstrate medium-risk behaviour, low-risk behaviour, and model disagreement.
