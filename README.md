@@ -398,34 +398,82 @@ These results represent the final project pipeline and are separate from results
 ## Project Structure
 
 ```text
-.
-├── app.py
-├── requirements.txt
-├── README.md
+bitcoin-transaction-fraud-detection-ai-investigation/
 │
-├── data/
-│   └── ...
+├── app.py
+├── README.md
+├── .gitignore
+│
+├── knowledge_base/
+│   ├── fraud_indicators.txt
+│   ├── investigation_procedures.txt
+│   ├── model_interpretation.txt
+│   └── risk_policy.txt
 │
 ├── models/
-│   └── ...
+│   ├── graphsage_best.pt
+│   ├── hybrid_fusion.pkl
+│   └── xgboost_final.pkl
 │
-├── src/
-│   ├── models/
-│   ├── risk_engine/
-│   ├── investigation/
-│   ├── graph/
-│   ├── rag/
-│   ├── policy/
-│   └── audit/
+├── notebooks/
+│   └── compare_gnn_models.ipynb
 │
 ├── results/
+│   ├── audit_log.json
+│   ├── final_risk_engine.csv
 │   ├── final_test_metrics.csv
 │   ├── hybrid_fusion_metrics.csv
+│   ├── investigation_evidence.csv
 │   ├── model_agreement_validation.csv
-│   └── final_risk_engine.csv
+│   └── representative_test_cases.json
 │
-└── ...
+└── src/
+    ├── models/
+    ├── ai_investigator.py
+    ├── align_prediction.py
+    ├── analyze_fusion.py
+    ├── analyze_graph_features.py
+    ├── analyze_graph_temporal.py
+    ├── analyze_model_agreement.py
+    ├── analyze_xgboost_features.py
+    ├── audit_logger.py
+    ├── build_graph.py
+    ├── build_historical_graph_features.py
+    ├── calibrate_models.py
+    ├── data_loader.py
+    ├── evaluate_fusion.py
+    ├── evaluate_fusion_weights.py
+    ├── evaluate_graph_features.py
+    ├── evaluate_hybrid_test.py
+    ├── evidence_package.py
+    ├── explain_xgboost.py
+    ├── final_model_selection.py
+    ├── final_risk_engine.py
+    ├── final_test_evaluation.py
+    ├── generate_investigation_evidence.py
+    ├── graph_tool.py
+    ├── hybrid_risk_fusion.py
+    ├── inspect_data.py
+    ├── llm_engine.py
+    ├── optimize_thresholds.py
+    ├── optimize_xgboost.py
+    ├── policy_engine.py
+    ├── rag_retriever.py
+    ├── risk_engine.py
+    ├── risk_engine_v2.py
+    ├── run_investigation.py
+    ├── select_test_transactions.py
+    ├── split.py
+    ├── test_investigation_suite.py
+    ├── train_baseline.py
+    ├── train_final_xgboost.py
+    ├── train_graphsage.py
+    ├── train_xgboost.py
+    ├── transaction_tool.py
+    ├── tune_xgboost.py
+    └── verify_graph.py
 ```
+
 
 ---
 
