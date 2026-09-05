@@ -482,8 +482,8 @@ bitcoin-transaction-fraud-detection-ai-investigation/
 Clone the repository:
 
 ```bash
-git clone <YOUR_GITHUB_REPOSITORY_URL>
-cd <PROJECT_DIRECTORY>
+git clone https://github.com/TheTachy0n/bitcoin-transaction-fraud-detection-ai-investigation.git
+cd bitcoin-transaction-fraud-detection-ai-investigation
 ```
 
 Create a virtual environment:
