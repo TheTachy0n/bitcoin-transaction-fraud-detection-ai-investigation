@@ -6,6 +6,7 @@ Traditional fraud detection systems typically produce a prediction or risk score
 
 The system uses XGBoost for transaction-level fraud prediction and GraphSAGE for graph-based analysis. Their predictions are combined through a hybrid risk engine, which is then supported by SHAP explanations, connected transaction analysis, transaction history, and a RAG-based knowledge base. An AI Investigator synthesizes this evidence before a policy engine produces an operational recommendation.
 
+![Risk Assessment](assets/risk-assessment.png)
 ---
 
 ## Overview
@@ -216,6 +217,8 @@ This provides additional context when a transaction appears suspicious because o
 
 Graph-based evidence is passed to the investigation layer alongside the model predictions and SHAP explanations.
 
+![Graph and SHAP Evidence](assets/graph-shap-evidence.png)
+
 ---
 
 ## Retrieval-Augmented Generation
@@ -238,6 +241,8 @@ AI Investigator
 ```
 
 RAG provides additional domain context to the investigation and helps ground generated reports in retrieved information.
+
+![Knowledge Base Evidence](assets/rag-evidence.png)
 
 ---
 
@@ -280,6 +285,8 @@ HIGH    -> Escalate
 ```
 
 Separating the policy layer from the LLM ensures that operational decisions are based on explicit rules rather than being determined solely by generated text.
+
+![AI Investigation and Policy Decision](assets/ai-investigation.png)
 
 ---
 
