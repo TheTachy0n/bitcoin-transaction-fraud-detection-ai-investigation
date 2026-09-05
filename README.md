@@ -14,45 +14,74 @@ The system uses XGBoost for transaction-level fraud prediction and GraphSAGE for
 The system is designed around the following workflow:
 
 ```text
-Bitcoin Transaction
-        |
-        v
-Feature Processing
-        |
-   +----+----+
-   |         |
-   v         v
-XGBoost   GraphSAGE
-   |         |
-   +----+----+
-        |
-        v
-   Hybrid Fusion
-        |
-        v
-    Risk Engine
-        |
-        v
-AI Investigator
-        |
-   +----+----+----+
-   |         |    |
-   v         v    v
- SHAP     Graph   RAG
-   |         |    |
-   +----+----+----+
-        |
-        v
- Evidence Package
-        |
-        v
- Policy Engine
-        |
-        v
- Investigation Report
-        |
-        v
-    Audit Log
+                         ┌──────────────────────┐
+                         │  Bitcoin Transaction │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │   Feature Processing │
+                         └──────────┬───────────┘
+                                    │
+                       ┌────────────┴────────────┐
+                       │                         │
+                       ▼                         ▼
+              ┌─────────────────┐      ┌─────────────────┐
+              │     XGBoost     │      │    GraphSAGE    │
+              │ Transaction Risk│      │  Graph Context  │
+              └────────┬────────┘      └────────┬────────┘
+                       │                         │
+                       └────────────┬────────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │    Hybrid Fusion     │
+                         │  XGBoost + GraphSAGE │
+                         └──────────┬───────────┘
+                                    │
+                                    ▼
+                         ┌──────────────────────┐
+                         │     Risk Engine      │
+                         │  Risk + Classification│
+                         └──────────┬───────────┘
+                                    │
+                    ┌───────────────┼───────────────┐
+                    │               │               │
+                    ▼               ▼               ▼
+             ┌────────────┐  ┌────────────┐  ┌────────────┐
+             │    SHAP    │  │   Graph    │  │    RAG     │
+             │  Explain-  │  │ Transaction│  │ Evidence & │
+             │  ability   │  │  Context   │  │  Policies  │
+             └─────┬──────┘  └─────┬──────┘  └─────┬──────┘
+                   │               │               │
+                   └───────────────┼───────────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │   AI Investigator     │
+                        │ Analysis & Reasoning  │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │   Evidence Package   │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │    Policy Engine     │
+                        │  Decision & Controls  │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │ Investigation Report │
+                        └──────────┬───────────┘
+                                   │
+                                   ▼
+                        ┌──────────────────────┐
+                        │      Audit Log       │
+                        └──────────────────────┘
 ```
 
 The main objective is to move from simple fraud classification toward an investigation-oriented system that can provide evidence and explain the reasoning behind a risk assessment.
