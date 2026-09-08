@@ -1,0 +1,11 @@
+streamlit
+pandas
+numpy
+scikit-learn
+xgboost
+torch
+torch-geometric
+shap
+networkx
+matplotlib
+openai
